@@ -1,0 +1,68 @@
+﻿@page "/form"
+@namespace GovBright.Web.Pages
+
+@using GovBright.Components;
+
+<EditForm Model="FeedBack" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+
+    <Wizard Id="DemoWizard">
+    <WizardStep Name="First Step">
+            <p>
+                <label for="Name">Name</label>
+                <InputText id="name" @bind-Value="FeedBack.Name" />
+                <ValidationMessage For="@(() => FeedBack.Name)" />
+            </p>
+    </WizardStep>
+    <WizardStep Name="Second Step">
+            <p>
+                <label for="Email">Email</label>
+                <InputText id="email" @bind-Value="FeedBack.Email" />
+                <ValidationMessage For="@(() => FeedBack.Email)" />
+            </p>
+    </WizardStep>
+    <WizardStep Name="Final Step">
+            <p>
+                <label for="Address">Address</label>
+              @*  <InputText id="address" @bind-Value="FeedBack.Address" />
+                <ValidationMessage For="@(() => FeedBack.Address)" />*@
+            </p>
+    </WizardStep>
+     <WizardStep Name="Final Step">
+            <p>
+                <label for="LightingOk">Is the Lighting Level Ok?</label>
+                <InputCheckbox id="lightingOk" @bind-Value="FeedBack.LightingOk" />
+                <ValidationMessage For="@(() => FeedBack.LightingOk)" />
+            </p>
+    </WizardStep>
+     <WizardStep Name="Final Step">
+        <p>
+        <label for="Brightness">Brightness</label>
+        <InputSelect id="brightness" @bind-Value="FeedBack.Brightness">
+            <option value="0">Select Brightness ...</option>
+            @for (int i = 1; i < 11; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => FeedBack.Brightness)" />
+    </p>
+    </WizardStep>
+
+        <WizardStep Name="Final Step">
+            <ValidationSummary />
+
+            <p>Here are your details:</p>
+            <p>
+                Name: @FeedBack.Name <br />
+                Email: @FeedBack.Email <br />
+                Address: @FeedBack.Address <br />
+                LightingOk: @FeedBack.LightingOk <br />
+                Brightness: @FeedBack.Brightness <br />
+               
+            </p>
+        </WizardStep>
+    
+</Wizard>
+</EditForm>

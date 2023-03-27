@@ -19,8 +19,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GovBright.Components\GovBright.Components.csproj" />
     <ProjectReference Include="..\GovBright.DAL\GovBright.DAL.csproj" />
     <ProjectReference Include="..\GovBright.Models\GovBright.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\FeedbackForm.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\FeedbackForm.razor" />
   </ItemGroup>
 
 </Project>
