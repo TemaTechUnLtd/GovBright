@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GovBright.Models
+﻿namespace GovBright.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Feedback
     {
         [Key]
@@ -19,8 +14,8 @@ namespace GovBright.Models
         [Required(ErrorMessage = "Please enter an email address")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
-
-        public Address Address { get; set; }
+               
+        public string Address { get; set; }
 
         public bool LightingOk { get; set; }
 

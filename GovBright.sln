@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovBright.Models", "GovBrig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovBright.Web", "GovBright.Web\GovBright.Web.csproj", "{1F33A94B-37A0-4FD6-BDDC-395E000DFFED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{6EC89C62-9AFD-4C2C-8E74-EC992BC78685}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1F33A94B-37A0-4FD6-BDDC-395E000DFFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F33A94B-37A0-4FD6-BDDC-395E000DFFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F33A94B-37A0-4FD6-BDDC-395E000DFFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC89C62-9AFD-4C2C-8E74-EC992BC78685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC89C62-9AFD-4C2C-8E74-EC992BC78685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC89C62-9AFD-4C2C-8E74-EC992BC78685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC89C62-9AFD-4C2C-8E74-EC992BC78685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

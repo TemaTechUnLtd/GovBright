@@ -20,8 +20,8 @@
                 {
                     Id = index,
                     Name = string.Format("Name{0}", index),
-                    Email = string.Format("Name{0}@BlazorBright.com", index),
-                    Address = GetAddress(index),
+                    Email = string.Format("Name{0}@GovBright.com", index),
+                    Address = "29 Acacia Road",
                     Brightness = index + 2,
                     CreatedDate = DateTime.Now,
                     LightingOk = index % 2 == 0 ? true : false,
@@ -40,20 +40,6 @@
             {
                 FeedbackSet.Add(feedbackRecord);
             });
-        }
-
-        private Address GetAddress(int index)
-        {
-            var address = new Address
-            {
-                FirstLine = string.Format("{0} Wallaby Road", index),
-                SecondLine = "Thornington",
-                Town = "Diddlesbury",
-                County = "Murshire",
-                Postcode = "MM3 6DR"
-            };
-
-            return address;
         }
     }
 }

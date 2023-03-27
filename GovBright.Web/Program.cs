@@ -13,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var authCconnectionString = builder.Configuration.GetConnectionString("AuthConnection") ?? throw new InvalidOperationException("Connection string 'AuthConnection' not found.");
-var feedbackConnectionString = builder.Configuration.GetConnectionString("FeedbackConnection") ?? throw new InvalidOperationException("Connection string 'FeedbackConnection' not found.");
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -24,15 +23,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
+
 
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
-builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
-builder.Services.AddDbContext<DataContext>(options => {
-    options.UseSqlServer(feedbackConnectionString);
-
-});
+builder.Services.RegisterFeedbackDataServices(builder.Configuration);
 
 var app = builder.Build();
 

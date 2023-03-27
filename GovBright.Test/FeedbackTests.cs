@@ -30,16 +30,9 @@ namespace GovBright.Test
             var newFeedback = new Feedback
             {
                 Id = 5,
-                Name = "Name-5",
-                Email = "Name-5@BlazorBright.com",
-                Address = new Address
-                {
-                    FirstLine = "5 Wallaby Road",
-                    SecondLine = "Thornington",
-                    Town = "Diddlesbury",
-                    County = "Murshire",
-                    Postcode = "MM3 6DR"
-                },
+                Name = "Name5",
+                Email = "Name5@GovBright.com",
+                Address = "29 Acacia Road",
                 Brightness = 7,
                 CreatedDate = DateTime.Now,
                 LightingOk = false
