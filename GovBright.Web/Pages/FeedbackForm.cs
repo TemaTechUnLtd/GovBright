@@ -12,6 +12,8 @@
 
         public List<string> Addresses = new List<string>();
 
+        public bool FormSubmitedOK { get; private set; }
+
         [Inject]
         private IFeedbackService FeedbackService { get; set; }
 
@@ -21,11 +23,14 @@
         private async Task HandleValidSubmit()
         {
             await FeedbackService.SaveFeedback(FeedBack);
+
+            FormSubmitedOK = true;
+            StateHasChanged();
         }
 
         private async Task FindAddress()
         {
-            Addresses =  await AddressService.SearchAddress(PostCodeSearch);
+            Addresses =  await AddressService.SearchAddress(PostCodeSearch);           
             StateHasChanged();
         }
     }

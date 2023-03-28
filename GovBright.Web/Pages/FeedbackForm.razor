@@ -3,71 +3,78 @@
 
 @using GovBright.Components;
 
-<EditForm Model="FeedBack" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <Wizard Id="DemoWizard">
-        <WizardStep Name="First Step">
-            <p>
-                <label for="Name">Name</label>
-                <InputText id="name" @bind-Value="FeedBack.Name" />
-                <ValidationMessage For="@(() => FeedBack.Name)" />
-            </p>
-        </WizardStep>
-        <WizardStep Name="Second Step">
-            <p>
-                <label for="Email">Email</label>
-                <InputText id="email" @bind-Value="FeedBack.Email" />
-                <ValidationMessage For="@(() => FeedBack.Email)" />
-            </p>
-        </WizardStep>
-        <WizardStep Name="Final Step">
-            <p>
-                <InputText id="email" @bind-Value="PostCodeSearch" />
-                <button @onclick="@FindAddress" @onclick:preventDefault="true">Find Postcode</button>
+@if (FormSubmitedOK)
+{
+    <p>Thanks for your feedback!</p>
+}
+else
+{
+    <EditForm Model="FeedBack" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <Wizard Id="DemoWizard">
+            <WizardStep Name="First Step">
+                <p>
+                    <label for="Name">Name</label>
+                    <InputText id="name" @bind-Value="FeedBack.Name" />
+                    <ValidationMessage For="@(() => FeedBack.Name)" />
+                </p>
+            </WizardStep>
+            <WizardStep Name="Second Step">
+                <p>
+                    <label for="Email">Email</label>
+                    <InputText id="email" @bind-Value="FeedBack.Email" />
+                    <ValidationMessage For="@(() => FeedBack.Email)" />
+                </p>
+            </WizardStep>
+            <WizardStep Name="Final Step">
+                <p>
+                    <InputText id="email" @bind-Value="PostCodeSearch" />
+                    <button @onclick="@FindAddress" @onclick:preventDefault="true">Find Postcode</button>
 
-                @if (Addresses.Any())
-                {
-                    <InputSelect id="brightness" @bind-Value="FeedBack.Address">
-                        <option value="0">Select Address ...</option>
-                        @foreach (var item in Addresses)
+                    @if (Addresses.Any())
+                    {
+                        <InputSelect id="brightness" @bind-Value="FeedBack.Address">
+                            <option value="0">Select Address ...</option>
+                            @foreach (var item in Addresses)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </InputSelect>
+                    }
+                </p>
+            </WizardStep>
+            <WizardStep Name="Final Step">
+                <p>
+                    <label for="LightingOk">Is the Lighting Level Ok?</label>
+                    <InputCheckbox id="lightingOk" @bind-Value="FeedBack.LightingOk" />
+                    <ValidationMessage For="@(() => FeedBack.LightingOk)" />
+                </p>
+            </WizardStep>
+            <WizardStep Name="Final Step">
+                <p>
+                    <label for="Brightness">Brightness</label>
+                    <InputSelect id="brightness" @bind-Value="FeedBack.Brightness">
+                        <option value="0">Select Brightness ...</option>
+                        @for (int i = 1; i < 11; i++)
                         {
-                            <option value="@item">@item</option>
+                            <option value="@i">@i</option>
                         }
                     </InputSelect>
-                }
-            </p>
-        </WizardStep>
-        <WizardStep Name="Final Step">
-            <p>
-                <label for="LightingOk">Is the Lighting Level Ok?</label>
-                <InputCheckbox id="lightingOk" @bind-Value="FeedBack.LightingOk" />
-                <ValidationMessage For="@(() => FeedBack.LightingOk)" />
-            </p>
-        </WizardStep>
-        <WizardStep Name="Final Step">
-            <p>
-                <label for="Brightness">Brightness</label>
-                <InputSelect id="brightness" @bind-Value="FeedBack.Brightness">
-                    <option value="0">Select Brightness ...</option>
-                    @for (int i = 1; i < 11; i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </InputSelect>
-                <ValidationMessage For="@(() => FeedBack.Brightness)" />
-            </p>
-        </WizardStep>
-        <WizardStep Name="Final Step">
-            <ValidationSummary />
-            <p>Here are your details:</p>
-            <p>
-                Name: @FeedBack.Name <br />
-                Email: @FeedBack.Email <br />
-                Address: @FeedBack.Address <br />
-                Lighting Level Ok: @FeedBack.LightingOk <br />
-                Brightness: @FeedBack.Brightness <br />
+                    <ValidationMessage For="@(() => FeedBack.Brightness)" />
+                </p>
+            </WizardStep>
+            <WizardStep Name="Final Step">
+                <ValidationSummary />
+                <p>Here are your details:</p>
+                <p>
+                    Name: @FeedBack.Name <br />
+                    Email: @FeedBack.Email <br />
+                    Address: @FeedBack.Address <br />
+                    Lighting Level Ok: @FeedBack.LightingOk <br />
+                    Brightness: @FeedBack.Brightness <br />
 
-            </p>
-        </WizardStep>
-    </Wizard>
-</EditForm>
+                </p>
+            </WizardStep>
+        </Wizard>
+    </EditForm>
+}

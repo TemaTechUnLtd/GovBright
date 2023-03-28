@@ -14,26 +14,24 @@
 
         public async Task<List<Feedback>> GetAllFeedback()
         {
-            var feedbacks = new List<Feedback>();
+            var allFeedbacks = new List<Feedback>();
 
-            using (var context = _context)
-            {
-                feedbacks = await _context.FeedbackSet.ToListAsync();
-            }
+            
+                allFeedbacks = await _context.FeedbackSet.ToListAsync();
+            
 
-            return feedbacks;
+            return allFeedbacks;
         }
 
         public async Task SaveFeedback(Feedback feedbackRecord)
         {
             feedbackRecord.CreatedDate = DateTime.UtcNow;
 
-            using (var context = _context)
-            {
-                context.FeedbackSet.Add(feedbackRecord);
+          
+                _context.FeedbackSet.Add(feedbackRecord);
 
-                context.SaveChanges();
-            }
+                _context.SaveChanges();
+          
         }
     }
 }
