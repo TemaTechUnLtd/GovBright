@@ -5,75 +5,178 @@
 
 @if (FormSubmitedOK)
 {
-    <p>Thanks for your feedback!</p>
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+            Thanks for your feedback!
+        </h1>
+        <div class="govuk-panel__body">
+            We really appreciate you input.
+        </div>
+    </div>
 }
 else
 {
     <EditForm Model="FeedBack" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <Wizard Id="DemoWizard">
-            <WizardStep Name="First Step">
-                <p>
-                    <label for="Name">Name</label>
-                    <InputText id="name" @bind-Value="FeedBack.Name" />
-                    <ValidationMessage For="@(() => FeedBack.Name)" />
-                </p>
+            <WizardStep Name="Name">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l">
+                            What is your name?
+                        </label>
+                    </h1>
+                    <InputText id="name" @bind-Value="FeedBack.Name" class="govuk-input" />
+                    <ValidationMessage For="@(() => FeedBack.Name)" class="govuk-error-message" />
+                </div>
             </WizardStep>
-            <WizardStep Name="Second Step">
-                <p>
-                    <label for="Email">Email</label>
-                    <InputText id="email" @bind-Value="FeedBack.Email" />
-                    <ValidationMessage For="@(() => FeedBack.Email)" />
-                </p>
-            </WizardStep>
-            <WizardStep Name="Final Step">
-                <p>
-                    <InputText id="email" @bind-Value="PostCodeSearch" />
-                    <button @onclick="@FindAddress" @onclick:preventDefault="true">Find Postcode</button>
+            <WizardStep Name="Email">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l">
+                            What is your email address?
+                        </label>
+                    </h1>
 
-                    @if (Addresses.Any())
-                    {
-                        <InputSelect id="brightness" @bind-Value="FeedBack.Address">
+                    <InputText id="email" @bind-Value="FeedBack.Email" class="govuk-input" />
+                    <ValidationMessage For="@(() => FeedBack.Email)" class="govuk-error-message" />
+                </div>
+            </WizardStep>
+            <WizardStep Name="Address">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l">
+                            What is your post code?
+                        </label>
+                    </h1>
+                    <InputText id="email" @bind-Value="PostCodeSearch" class="govuk-input" />
+                    <button class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"
+                        @onclick="@FindAddress"
+                        @onclick:preventDefault="true">
+                        Find Postcode
+                    </button>
+                </div>
+                @if (Addresses.Any())
+                {
+                    <div class="govuk-form-group">
+
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l">
+                                Please Select your address
+                            </label>
+                        </h1>
+                        <InputSelect class="govuk-select"
+                             @bind-Value="FeedBack.Address">
                             <option value="0">Select Address ...</option>
                             @foreach (var item in Addresses)
                             {
                                 <option value="@item">@item</option>
                             }
                         </InputSelect>
-                    }
-                </p>
+                    </div>
+                }
             </WizardStep>
-            <WizardStep Name="Final Step">
-                <p>
-                    <label for="LightingOk">Is the Lighting Level Ok?</label>
-                    <InputCheckbox id="lightingOk" @bind-Value="FeedBack.LightingOk" />
-                    <ValidationMessage For="@(() => FeedBack.LightingOk)" />
-                </p>
+            <WizardStep Name="Lighting">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" >
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading">
+                                Is the lighting level OK?
+                            </h1>
+                        </legend>
+
+                        <div class="govuk-checkboxes__item" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                <InputCheckbox @bind-Value="FeedBack.LightingOk" class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" />
+                                <label class="govuk-label govuk-checkboxes__label">
+                                    Lighting is adequate
+                                </label>
+                            </div>
+                        </div>                        
+                    </fieldset>
+                </div>
             </WizardStep>
-            <WizardStep Name="Final Step">
-                <p>
-                    <label for="Brightness">Brightness</label>
-                    <InputSelect id="brightness" @bind-Value="FeedBack.Brightness">
+            <WizardStep Name="Brightness">
+
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l">
+                            How would you rate the level of brightness?
+                        </label>
+                    </h1>
+                    <InputSelect id="brightness"
+                             class="govuk-select"
+                             @bind-Value="FeedBack.Brightness">
                         <option value="0">Select Brightness ...</option>
                         @for (int i = 1; i < 11; i++)
                         {
                             <option value="@i">@i</option>
                         }
                     </InputSelect>
-                    <ValidationMessage For="@(() => FeedBack.Brightness)" />
-                </p>
+                    <ValidationMessage For="@(() => FeedBack.Brightness)" class="govuk-error-message" />
+                </div>
             </WizardStep>
-            <WizardStep Name="Final Step">
-                <ValidationSummary />
-                <p>Here are your details:</p>
-                <p>
-                    Name: @FeedBack.Name <br />
-                    Email: @FeedBack.Email <br />
-                    Address: @FeedBack.Address <br />
-                    Lighting Level Ok: @FeedBack.LightingOk <br />
-                    Brightness: @FeedBack.Brightness <br />
+            <WizardStep Name="Confirmation">
+                <ValidationSummary class="govuk-error-message" />
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l">
+                            Here are your details:
+                        </label>
+                    </h1>
 
-                </p>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Name
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @FeedBack.Name
+                            </dd>                           
+                        </div>
+                    </dl>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Email
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @FeedBack.Email
+                            </dd>
+                        </div>
+                    </dl>
+                     <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Address
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @FeedBack.Address
+                            </dd>                           
+                        </div>
+                    </dl>
+                     <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Lighting Level Ok
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @(FeedBack.LightingOk == true ? "Lighting is Ok" : "Lighting is not Ok")
+                            </dd>                           
+                        </div>
+                    </dl>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Brightness
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @FeedBack.Brightness
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
             </WizardStep>
         </Wizard>
     </EditForm>

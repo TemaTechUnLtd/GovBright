@@ -1,12 +1,20 @@
-﻿<AuthorizeView>
-    <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
-        <form method="post" action="Identity/Account/Logout">
-            <button type="submit" class="govuk-button" data-module="govuk-button">Log out</button>
-        </form>
-    </Authorized>
-    <NotAuthorized>
-        <a href="Identity/Account/Register">Register</a>
-        <a href="Identity/Account/Login">Log in</a>
-    </NotAuthorized>
-</AuthorizeView>
+﻿
+<div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+
+        <AuthorizeView>
+            <Authorized>
+                <a href="Identity/Account/Manage" class="govuk-link">Hello, @context.User.Identity?.Name!</a>
+                <form method="post" action="Identity/Account/Logout">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Log out</button>
+                </form>
+            </Authorized>
+            <NotAuthorized>
+                <a href="Identity/Account/Register" class="govuk-link"><strong>Register</strong></a> | <a href="Identity/Account/Login" class="govuk-link"><strong>Log in</strong></a>
+            </NotAuthorized>
+        </AuthorizeView>
+    </p>
+</div>
+
+
+

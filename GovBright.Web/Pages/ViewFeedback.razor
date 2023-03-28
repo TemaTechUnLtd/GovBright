@@ -1,41 +1,39 @@
 ﻿@page "/viewfeedback"
 @attribute [Authorize]
 
-<h3>View Feedback</h3>
-
 @if (FeedbackSet.Any())
 {
-   <table>
-    <tr>
-        <th>Feedback Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Lighting OK</th>
-        <th>Brightness</th>
-        <th>Date Created</th>
-    </tr>
+    <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--l">View Feedback</caption>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Id</th>
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Email</th>
+                <th scope="col" class="govuk-table__header">Address</th>
+                <th scope="col" class="govuk-table__header">Lighting OK</th>
+                <th scope="col" class="govuk-table__header">Brightness</th>
+                <th scope="col" class="govuk-table__header">Date Created</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">          
 
-
-
-    @foreach (var item in FeedbackSet)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Email</td>
-            <td>@item.Address</td>
-            <td>@item.LightingOk</td>
-            <td>@item.Brightness</td>
-            <td>@item.CreatedDate</td>
-        </tr>
-    }
-
+            @foreach (var item in FeedbackSet)
+            {
+                <tr>
+                    <td class="govuk-table__cell">@item.Id</td>
+                    <td class="govuk-table__cell">@item.Name</td>
+                    <td class="govuk-table__cell">@item.Email</td>
+                    <td class="govuk-table__cell">@item.Address</td>
+                    <td class="govuk-table__cell">@item.LightingOk</td>
+                    <td class="govuk-table__cell">@item.Brightness</td>
+                    <td class="govuk-table__cell">@item.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 else
 {
     <p>No feedback to show</p>
 }
-
-

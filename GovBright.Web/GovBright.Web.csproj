@@ -459,4 +459,8 @@
     <None Include="wwwroot\assets\images\govuk-mask-icon.svg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
 </Project>
