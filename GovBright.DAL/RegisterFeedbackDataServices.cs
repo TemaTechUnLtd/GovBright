@@ -10,7 +10,8 @@
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("FeedbackConnection"));               
+                options.UseSqlServer(configuration.GetConnectionString("FeedbackConnection"),
+                    x => x.MigrationsAssembly("GovBright.Dal"));               
             });
 
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
