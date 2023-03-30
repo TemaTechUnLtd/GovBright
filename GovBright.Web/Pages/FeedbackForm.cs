@@ -2,11 +2,15 @@
 {
     using GovBright.Models;
     using GovBright.Web.Services;
+    using GovBright.Web.Shared;
     using Microsoft.AspNetCore.Components;
 
     public partial class FeedbackForm : ComponentBase
     {
         private Feedback FeedBack = new Feedback();
+
+        [CascadingParameter]
+        public Error? Error { get; set; }
 
         public string PostCodeSearch { get; set; }
 
@@ -24,18 +28,32 @@
 
         private async Task HandleValidSubmit()
         {
-            await FeedbackService.SaveFeedback(FeedBack);
+            try
+            {
+                await FeedbackService.SaveFeedback(FeedBack);
 
-            FormSubmitedOK = true;
-            StateHasChanged();
+                FormSubmitedOK = true;
+                StateHasChanged();
+            }
+            catch (System.Exception ex)
+            {
+                Error?.ProcessError(ex);
+            }
         }
 
         private async Task FindAddress()
         {
-            Addresses = await AddressService.SearchAddress(PostCodeSearch); 
-            ShowNoResults = !Addresses.Any();
+            try
+            {
+                Addresses = await AddressService.SearchAddress(PostCodeSearch);
+                ShowNoResults = !Addresses.Any();
 
-            StateHasChanged();
+                StateHasChanged();
+            }
+            catch (System.Exception ex)
+            {
+                Error?.ProcessError(ex);
+            }
         }
     }
 }

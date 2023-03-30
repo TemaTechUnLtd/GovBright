@@ -2,11 +2,8 @@ using GovBright.DAL;
 using GovBright.Web.Areas.Identity;
 using GovBright.Web.Data;
 using GovBright.Web.Services;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +24,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IAddressClientHelper, AddressClientHelper>();
 
 builder.Services.RegisterFeedbackDataServices(builder.Configuration);
 

@@ -2,6 +2,7 @@
 {
     using GovBright.DAL;
     using GovBright.Models;
+    using GovBright.Web.Exceptions;
 
     public class FeedbackService : IFeedbackService
     {
@@ -14,12 +15,26 @@
 
         public async Task<List<Feedback>> GetAllFeedback()
         {
-            return await _feedbackRepository.GetAllFeedback();
+            try
+            {
+                return await _feedbackRepository.GetAllFeedback();
+            }
+            catch (Exception ex)
+            {
+                throw new FeedbackException(ex.Message);
+            }
         }
 
         public async Task SaveFeedback(Feedback feedbackRecord)
         {
-            await _feedbackRepository.SaveFeedback(feedbackRecord);
+            try
+            { 
+                await _feedbackRepository.SaveFeedback(feedbackRecord);
+            }
+            catch (Exception ex)
+            {
+                throw new FeedbackException(ex.Message);
+            }
         }
     }
 }

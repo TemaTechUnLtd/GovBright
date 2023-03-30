@@ -1,6 +1,6 @@
 ﻿namespace GovBright.Web.Services
 {
-    using Newtonsoft.Json.Linq;
+    using GovBright.Web.Exceptions;
     using System.Web;
 
     public class AddressService : IAddressService
@@ -8,42 +8,28 @@
         private const string apiKey = "PCWS8-6666J-EGJ3N-W4DBZ";
         private const string countryCode = "UK";
 
-        public AddressService() 
-        {           
+        private readonly IAddressClientHelper _httpClientHelper;
+
+        public AddressService(IAddressClientHelper httpClientHelper)
+        {
+            _httpClientHelper = httpClientHelper;
         }
 
         public async Task<List<string>> SearchAddress(string searchTerm)
         {
-            string requestUrl = $"https://ws.postcoder.com/pcw/{apiKey}/address/{countryCode}/{HttpUtility.UrlEncode(searchTerm)}";
-
-            var addresses = new List<string>();
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                // Send request
-                var response = await client.GetAsync(requestUrl);
-                var responseContent = await response.Content.ReadAsStringAsync();
+                string requestUrl = $"https://ws.postcoder.com/pcw/{apiKey}/address/{countryCode}/{HttpUtility.UrlEncode(searchTerm)}";
 
-                // Process response
-                if (response.IsSuccessStatusCode)
-                {
-                    JArray responseJson = JArray.Parse(responseContent);
+                var addresses = await _httpClientHelper.GetAddressesAsync(requestUrl);
 
-                    if (responseJson.Count > 0)
-                    {
-                        foreach (JObject address in responseJson)
-                        {
-                            addresses.Add($"{address["summaryline"]}");
-                        }
-                    }                   
-                }
-                else
-                {
-                    Console.WriteLine($"Request error: {responseContent}");
-                }
+                return addresses;
             }
+            catch (Exception ex)
+            {
 
-            return addresses;
+                throw new AddressException(ex.Message);
+            }
         }
     }
 }

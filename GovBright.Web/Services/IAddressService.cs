@@ -1,6 +1,4 @@
-﻿using GovBright.Models;
-
-namespace GovBright.Web.Services
+﻿namespace GovBright.Web.Services
 {
     public interface IAddressService
     {

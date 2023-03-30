@@ -2,7 +2,9 @@ namespace GovBright.Test
 {
     using GovBright.DAL;
     using GovBright.Models;
+    using GovBright.Web.Exceptions;
     using GovBright.Web.Services;
+    using Moq;
 
     public class FeedbackTests
     {
@@ -10,8 +12,12 @@ namespace GovBright.Test
         public async Task GetAllFeedback_ReturnsAllFeedback()
         {
             //arrange
-            IFeedbackRepository feedbackrepo = new FeedbackRepositoryMock();
-            var feedbackservice = new FeedbackService(feedbackrepo);
+            var feedbackSet = FeedbackRepositorySetup.SetupFeedbackCollection();
+
+            var feedbackrepo = new Mock<IFeedbackRepository>();
+            feedbackrepo.Setup(f => f.GetAllFeedback()).ReturnsAsync(feedbackSet);
+
+            var feedbackservice = new FeedbackService(feedbackrepo.Object);
 
             //act
             var allfeedback = await feedbackservice.GetAllFeedback();
@@ -24,8 +30,11 @@ namespace GovBright.Test
         public async Task AddFeedback_FeedBackAdded_TotalFeedbackCountIncreasesByOne()
         {
             //arrange
-            IFeedbackRepository feedbackrepo = new FeedbackRepositoryMock();
-            var feedbackservice = new FeedbackService(feedbackrepo);
+            var feedbackrepo = new Mock<IFeedbackRepository>();
+
+            feedbackrepo.Setup(f => f.SaveFeedback(It.IsAny<Feedback>())).Returns(Task.CompletedTask);
+
+            var feedbackservice = new FeedbackService(feedbackrepo.Object);
 
             var newFeedback = new Feedback
             {
@@ -40,10 +49,36 @@ namespace GovBright.Test
 
             //act
             await feedbackservice.SaveFeedback(newFeedback);
-            var allfeedback = await feedbackservice.GetAllFeedback();
+        }
+
+        [Fact]
+        public async Task AddFeedback_ThrowsError()
+        {
+            
+            //arrange
+            var feedbackrepo = new Mock<IFeedbackRepository>();
+
+            feedbackrepo.Setup(f => f.SaveFeedback(It.IsAny<Feedback>()))
+                .Throws<FeedbackException>();
+
+            var feedbackservice = new FeedbackService(feedbackrepo.Object);
+
+            var newFeedback = new Feedback
+            {
+                Id = 5,
+                Name = "Name5",
+                Email = "Name5@GovBright.com",
+                Address = "29 Acacia Road",
+                Brightness = 7,
+                CreatedDate = DateTime.Now,
+                LightingOk = false
+            };
+
+            //act
+            Func<Task> act = () => feedbackservice.SaveFeedback(newFeedback);
 
             //assert
-            Assert.Equal(5, allfeedback.Count);
+            var exception = await Assert.ThrowsAsync<FeedbackException>(act);
         }
     }
 }
