@@ -57,6 +57,7 @@ else
                         Find Postcode
                     </button>
                 </div>
+
                 @if (Addresses.Any())
                 {
                     <div class="govuk-form-group">
@@ -76,10 +77,21 @@ else
                         </InputSelect>
                     </div>
                 }
+                else if (ShowNoResults)
+                {
+                    <div class="govuk-form-group">
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l">
+                                No addresses found. Please try entering a valid postcode.
+                            </label>
+                        </h1>
+                    </div>
+                }
+
             </WizardStep>
             <WizardStep Name="Lighting">
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" >
+                    <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
                                 Is the lighting level OK?
@@ -93,7 +105,7 @@ else
                                     Lighting is adequate
                                 </label>
                             </div>
-                        </div>                        
+                        </div>
                     </fieldset>
                 </div>
             </WizardStep>
@@ -133,7 +145,7 @@ else
                             </dt>
                             <dd class="govuk-summary-list__value">
                                 @FeedBack.Name
-                            </dd>                           
+                            </dd>
                         </div>
                     </dl>
                     <dl class="govuk-summary-list">
@@ -146,24 +158,24 @@ else
                             </dd>
                         </div>
                     </dl>
-                     <dl class="govuk-summary-list">
+                    <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
                                 Address
                             </dt>
                             <dd class="govuk-summary-list__value">
                                 @FeedBack.Address
-                            </dd>                           
+                            </dd>
                         </div>
                     </dl>
-                     <dl class="govuk-summary-list">
+                    <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
                                 Lighting Level Ok
                             </dt>
                             <dd class="govuk-summary-list__value">
                                 @(FeedBack.LightingOk == true ? "Lighting is Ok" : "Lighting is not Ok")
-                            </dd>                           
+                            </dd>
                         </div>
                     </dl>
                     <dl class="govuk-summary-list">

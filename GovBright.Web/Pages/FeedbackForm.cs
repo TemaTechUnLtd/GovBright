@@ -12,6 +12,8 @@
 
         public List<string> Addresses = new List<string>();
 
+        public bool ShowNoResults { get; set; }
+
         public bool FormSubmitedOK { get; private set; }
 
         [Inject]
@@ -30,7 +32,9 @@
 
         private async Task FindAddress()
         {
-            Addresses =  await AddressService.SearchAddress(PostCodeSearch);           
+            Addresses = await AddressService.SearchAddress(PostCodeSearch); 
+            ShowNoResults = !Addresses.Any();
+
             StateHasChanged();
         }
     }
