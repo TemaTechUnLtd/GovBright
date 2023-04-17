@@ -24,6 +24,15 @@ Have a click about and feel free to make any ammends/suggestions/constructive fe
 
 Thanks for reading (^_^)
 
+# Software Engineer Competency Assessment
+
+### Introduction
+The purpose of this assessment is to test for a basic level of competency, combined with the
+ability to learn new skills where needed. We require you to do a set of tasks for submission
+prior to an interview. Should you be subsequently called for an interview, you may also be
+asked questions about this assessment within the context of the business analyst working
+on the project.
+
 ### Requirement
 A government department needs a website to allow members of the public to give feedback
 about the lighting outside of their home. They would like you to create a .Net MVC (or blazor) website
