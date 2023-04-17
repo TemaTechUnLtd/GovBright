@@ -18,7 +18,7 @@ Submitted: 28/03/23
 ## Setup
 1.  Create a free account at https://postcoder.com/ and put your api key in AddressService.cs 
 2.  Change the connection strings in appsettings.json to point to your local instace of SQL Server
-3.  Run migrations for both the authentication (Govbright.Web project ) and data (Govbright.DAL project) databases
+3.  Run migrations and create databases for both the authentication (Govbright.Web project ) and data (Govbright.DAL project) features
 
 Have a click about and feel free to make any ammends/suggestions/constructive feedback.
 
